@@ -281,7 +281,7 @@ pub fn encode_frames(
             }
         }
     } else {
-        return Ok(());
+        Ok(())
     }
 }
 

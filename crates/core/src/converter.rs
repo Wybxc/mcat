@@ -156,7 +156,7 @@ pub fn exe_to_image(path: impl AsRef<Path>) -> Option<DynamicImage> {
     ico_file.extend_from_slice(&22u32.to_le_bytes()); // Offset to img data (6 + 16 = 22)
     ico_file.extend_from_slice(icon_data); // Add the raw img data
 
-    return image::load_from_memory(&ico_file).ok();
+    image::load_from_memory(&ico_file).ok()
 }
 
 fn get_icon_path_from_url(path: impl AsRef<Path>) -> Option<String> {
@@ -184,7 +184,7 @@ pub fn url_file_to_image(path: impl AsRef<Path>) -> Option<DynamicImage> {
         return None;
     }
 
-    return image::open(icon_path).ok();
+    image::open(icon_path).ok()
 }
 
 pub fn svg_to_image(

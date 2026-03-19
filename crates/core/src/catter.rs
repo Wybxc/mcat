@@ -53,7 +53,7 @@ pub fn get_album(path: &Path) -> Option<Vec<DynamicImage>> {
         }
     }
 
-    return None;
+    None
 }
 
 pub fn cat(
@@ -187,7 +187,7 @@ pub fn cat(
                 Ok(CatType::Pretty)
             } else {
                 out.write_all(content.as_bytes())?;
-                return Ok(CatType::Markdown)
+                Ok(CatType::Markdown)
             }
         },
         ("image", _) => {
@@ -316,13 +316,13 @@ pub fn load(
             let r = fs::read_to_string(path)?;
 
             let res = LoadResult::Text(r);
-            return Ok((res, ext, to));
+            Ok((res, ext, to))
         }
         _ => {
             let f = markdownify::convert(path)?;
 
             let res = LoadResult::Text(f);
-            return Ok((res, "md".to_owned(), to));
+            Ok((res, "md".to_owned(), to))
         }
     }
 }
@@ -496,7 +496,7 @@ impl Pager {
     pub fn command_and_args_from_string(full: &str) -> Option<(String, Vec<String>)> {
         let parts = shell_words::split(full).ok()?;
         let (cmd, args) = parts.split_first()?;
-        return Some((cmd.clone(), args.to_vec()));
+        Some((cmd.clone(), args.to_vec()))
     }
     pub fn new(def_command: &str) -> Option<Self> {
         let (command, args) = Pager::command_and_args_from_string(def_command)?;

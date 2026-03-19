@@ -251,7 +251,7 @@ fn get_ext_from_response<'a>(response: &Response) -> Option<&'a str> {
 fn write_to_tmp_file(data: &[u8], ext: &str) -> Result<NamedTempFile, Box<dyn std::error::Error>> {
     let mut tmp_file = NamedTempFile::with_suffix(&format!(".{}", ext))?;
     tmp_file.write_all(data)?;
-    return Ok(tmp_file);
+    Ok(tmp_file)
 }
 
 async fn download_media(

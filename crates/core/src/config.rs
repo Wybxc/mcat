@@ -187,11 +187,11 @@ pub enum SortMode {
 impl SortMode {
     pub fn from_string(s: &str) -> SortMode {
         match s.to_lowercase().as_ref() {
-            "name" => return SortMode::Name,
-            "size" => return SortMode::Size,
-            "time" => return SortMode::Time,
-            "type" => return SortMode::Type,
-            _ => return SortMode::Name,
+            "name" => SortMode::Name,
+            "size" => SortMode::Size,
+            "time" => SortMode::Time,
+            "type" => SortMode::Type,
+            _ => SortMode::Name,
         }
     }
 }
@@ -206,9 +206,9 @@ pub enum AlwaysOrNever {
 impl AlwaysOrNever {
     pub fn from_string(s: &str) -> AlwaysOrNever {
         match s.to_lowercase().as_ref() {
-            "always" => return AlwaysOrNever::Always,
-            "never" => return AlwaysOrNever::Never,
-            _ => return AlwaysOrNever::Always,
+            "always" => AlwaysOrNever::Always,
+            "never" => AlwaysOrNever::Never,
+            _ => AlwaysOrNever::Always,
         }
     }
     pub fn should_use(&self, other: bool) -> bool {

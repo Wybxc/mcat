@@ -139,7 +139,7 @@ impl ImagePreprocessor {
                     .resize_plus(Some(width_fm), Some(height_fm), false, false)
                     .ok()?;
 
-                return Some((url, img, new_width));
+                Some((url, img, new_width))
             })
             .collect();
 

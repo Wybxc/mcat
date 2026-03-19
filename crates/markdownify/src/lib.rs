@@ -183,21 +183,21 @@ pub fn parse_utf8(content: Vec<u8>) -> Result<String, ParsingError> {
 }
 
 pub fn file_fallback(content: String, ext: String) -> String {
-    return format!("```{ext}\n{content}\n```");
+    format!("```{ext}\n{content}\n```")
 }
 
 pub fn image_fallback(path: String) -> String {
-    return format!("![Image]({path})");
+    format!("![Image]({path})")
 }
 
 pub fn video_fallback(path: String) -> String {
-    return format!("![Video]({path})");
+    format!("![Video]({path})")
 }
 
 pub fn audio_fallback(path: String) -> String {
-    return format!("<audio controls src=\"{path}\"></audio>");
+    format!("<audio controls src=\"{path}\"></audio>")
 }
 
 pub fn binary_fallback(path: String, ext: String) -> String {
-    return format!("[{ext} File]({path})");
+    format!("[{ext} File]({path})")
 }
