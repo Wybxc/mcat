@@ -355,6 +355,12 @@ pub struct EnvIdentifiers {
     pub data: HashMap<String, String>,
 }
 
+impl Default for EnvIdentifiers {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
 impl EnvIdentifiers {
     pub fn new() -> Self {
         let keys = vec![
