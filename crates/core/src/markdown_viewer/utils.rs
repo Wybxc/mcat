@@ -422,7 +422,7 @@ pub fn wrap_highlighted_line(
     buf
 }
 
-pub fn format_code_simple<'a>(code: &str, lang: &str, ctx: &AnsiContext, indent: usize) -> String {
+pub fn format_code_simple(code: &str, lang: &str, ctx: &AnsiContext, indent: usize) -> String {
     let header = match get_lang_icon_and_color(lang) {
         Some((icon, color)) => &format!("{color}{icon} {lang}{RESET}",),
         None => lang,
@@ -464,7 +464,7 @@ pub fn format_code_simple<'a>(code: &str, lang: &str, ctx: &AnsiContext, indent:
     format!("{indent}{header}\n{content}{RESET}")
 }
 
-pub fn format_code_full<'a>(code: &str, lang: &str, ctx: &AnsiContext) -> String {
+pub fn format_code_full(code: &str, lang: &str, ctx: &AnsiContext) -> String {
     let ts = ctx.theme.to_syntect_theme();
     let syntax = ctx
         .ps
@@ -532,7 +532,7 @@ pub fn format_code_full<'a>(code: &str, lang: &str, ctx: &AnsiContext) -> String
     buffer.to_string()
 }
 
-pub fn format_code_box<'a>(code: &str, lang: &str, title: &str, ctx: &AnsiContext) -> String {
+pub fn format_code_box(code: &str, lang: &str, title: &str, ctx: &AnsiContext) -> String {
     let term_width = ctx.term_width;
     let color = &ctx.theme.border.fg;
     let content = code.trim();
