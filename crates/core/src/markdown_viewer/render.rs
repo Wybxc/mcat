@@ -615,11 +615,10 @@ fn render_image<'a>(node: &'a AstNode<'a>, ctx: &mut AnsiContext) -> String {
     };
     let url = &node_link.url;
 
-    if let Some(img) = ctx.image_preprocessor.mapper.get(url) {
-        if img.is_ok {
+    if let Some(img) = ctx.image_preprocessor.mapper.get(url)
+        && img.is_ok {
             return img.placeholder.clone();
         }
-    }
 
     let content = collect(node, ctx, "");
     let cyan = ctx.theme.cyan.fg.clone();

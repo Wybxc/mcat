@@ -254,11 +254,10 @@ pub fn latex_to_pdf<P: AsRef<Path>>(input_path: P) -> Option<(TempDir, PathBuf)>
         .args(&["--outdir", temp_dir.path().to_str()?, input_path.to_str()?])
         .output();
 
-    if let Ok(output) = tectonic {
-        if output.status.success() && temp_pdf.exists() {
+    if let Ok(output) = tectonic
+        && output.status.success() && temp_pdf.exists() {
             return Some((temp_dir, temp_pdf));
         }
-    }
 
     // Fallback to pdflatex
     let pdflatex = Command::new("pdflatex")
@@ -269,11 +268,10 @@ pub fn latex_to_pdf<P: AsRef<Path>>(input_path: P) -> Option<(TempDir, PathBuf)>
         ])
         .output();
 
-    if let Ok(output) = pdflatex {
-        if output.status.success() && temp_pdf.exists() {
+    if let Ok(output) = pdflatex
+        && output.status.success() && temp_pdf.exists() {
             return Some((temp_dir, temp_pdf));
         }
-    }
 
     None
 }
@@ -298,11 +296,10 @@ pub fn typst_to_pdf<P: AsRef<Path>>(input_path: P) -> Option<NamedTempFile> {
         ])
         .output();
 
-    if let Ok(output) = result {
-        if output.status.success() && output_path.exists() {
+    if let Ok(output) = result
+        && output.status.success() && output_path.exists() {
             return Some(temp_pdf);
         }
-    }
 
     None
 }
@@ -943,20 +940,18 @@ fn video_to_gif(input: impl AsRef<str>, silent: bool) -> Result<Vec<u8>, Box<dyn
             let seconds: f64 = cap[3].parse().unwrap_or(0.0);
             duration_secs = Some(hours * 3600.0 + minutes * 60.0 + seconds);
         }
-        if fps.is_none() {
-            if let Some(cap) = fps_re.captures(&line) {
+        if fps.is_none()
+            && let Some(cap) = fps_re.captures(&line) {
                 fps = Some(cap[1].parse::<f64>().unwrap_or(0.0));
             }
-        }
-        if total_frames.is_none() {
-            if let (Some(dur), Some(f)) = (duration_secs, fps) {
+        if total_frames.is_none()
+            && let (Some(dur), Some(f)) = (duration_secs, fps) {
                 let frames = (dur * f).round();
                 total_frames = Some(frames);
                 if !silent {
                     pb.as_ref().unwrap().set_length(frames as u64);
                 }
             }
-        }
 
         // Parse frame count from progress output
         if let Some(cap) = frame_re.captures(&line) {

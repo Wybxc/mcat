@@ -104,11 +104,10 @@ pub fn parse_docx(content: impl AsRef<[u8]>) -> Result<String, ParsingError> {
                     if styles.header || styles.title {
                         continue;
                     }
-                    if let Some(val) = get_attr(&e, b"w:val") {
-                        if let Ok(val) = val.parse::<i8>() {
+                    if let Some(val) = get_attr(&e, b"w:val")
+                        && let Ok(val) = val.parse::<i8>() {
                             styles.indent = val + 1
                         }
-                    }
                 }
                 _ => {}
             },

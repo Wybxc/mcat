@@ -255,13 +255,12 @@ pub fn dim_to_px(dim: &str, direction: SizeDirection) -> Result<u32, String> {
             let value = (spx as f32 / sc as f32 * num as f32).ceil() as u32;
             return Ok(value.into());
         }
-    } else if dim.ends_with("%") {
-        if let Ok(num) = dim.trim_end_matches("%").parse::<f32>() {
+    } else if dim.ends_with("%")
+        && let Ok(num) = dim.trim_end_matches("%").parse::<f32>() {
             let normalized_percent = num / 100.0;
             let value = (spx as f32 * normalized_percent).ceil() as u32;
             return Ok(value);
         }
-    }
 
     Err(format!("Invalid dimension format: {}", dim))
 }
@@ -297,13 +296,12 @@ pub fn dim_to_cells(dim: &str, direction: SizeDirection) -> Result<u32, String> 
             let value = (px as f32 / (spx as f32 / sc as f32)).ceil() as u32;
             return Ok(value);
         }
-    } else if dim.ends_with("%") {
-        if let Ok(percent) = dim.trim_end_matches("%").parse::<f32>() {
+    } else if dim.ends_with("%")
+        && let Ok(percent) = dim.trim_end_matches("%").parse::<f32>() {
             let normalized = percent / 100.0;
             let value = (sc as f32 * normalized).ceil() as u32;
             return Ok(value);
         }
-    }
 
     Err(format!("Invalid dimension format: {}", dim))
 }

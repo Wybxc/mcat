@@ -194,11 +194,10 @@ impl ProcessingContext {
                     return content;
                 }
 
-                if let Some(align) = element.value().attr("align") {
-                    if align.trim().to_lowercase() == "center" {
+                if let Some(align) = element.value().attr("align")
+                    && align.trim().to_lowercase() == "center" {
                         return format!("<!--CENTER_ON-->\n\n{content}\n\n<!--CENTER_OFF-->");
                     }
-                }
 
                 content
             });

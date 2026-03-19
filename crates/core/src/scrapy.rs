@@ -202,17 +202,15 @@ pub fn scrape_biggest_media(
         let response = get_response(client, url, options).await?;
 
         // Check content length before proceeding
-        if let Some(max_length) = options.max_content_length {
-            if let Some(content_length) = get_content_length(&response) {
-                if content_length > max_length {
+        if let Some(max_length) = options.max_content_length
+            && let Some(content_length) = get_content_length(&response)
+                && content_length > max_length {
                     return Err(format!(
                         "Content length ({} bytes) exceeds maximum allowed ({} bytes)",
                         content_length, max_length
                     )
                     .into());
                 }
-            }
-        }
 
         // Direct file download if mime type is recognized
         if let Some(ext) = get_ext_from_response(&response) {
@@ -263,15 +261,14 @@ async fn download_media(
     let content_length = get_content_length(&response);
 
     // Check max content length before downloading
-    if let (Some(max_length), Some(actual_length)) = (options.max_content_length, content_length) {
-        if actual_length > max_length {
+    if let (Some(max_length), Some(actual_length)) = (options.max_content_length, content_length)
+        && actual_length > max_length {
             return Err(format!(
                 "Content length ({} bytes) exceeds maximum allowed ({} bytes)",
                 actual_length, max_length
             )
             .into());
         }
-    }
 
     // Setup progress bar if not silent and content length is known
     let progress_bar =
@@ -296,8 +293,8 @@ async fn download_media(
         file_data.extend_from_slice(&chunk);
 
         // Check if we've exceeded max content length during download
-        if let Some(max_length) = options.max_content_length {
-            if file_data.len() as u64 > max_length {
+        if let Some(max_length) = options.max_content_length
+            && file_data.len() as u64 > max_length {
                 if let Some(pb) = progress_bar {
                     pb.finish_and_clear();
                 }
@@ -308,7 +305,6 @@ async fn download_media(
                 )
                 .into());
             }
-        }
 
         // Update progress bar if we have one
         if let Some(pb) = &progress_bar {
@@ -397,13 +393,11 @@ async fn process_html(
         };
 
         // Check content length before downloading
-        if let Some(max_length) = options.max_content_length {
-            if let Some(content_length) = get_content_length(&media_response) {
-                if content_length > max_length {
+        if let Some(max_length) = options.max_content_length
+            && let Some(content_length) = get_content_length(&media_response)
+                && content_length > max_length {
                     continue; // Skip this media item
                 }
-            }
-        }
 
         // check if its an ext we support
         let ext = match get_ext_from_response(&media_response) {

@@ -253,11 +253,10 @@ pub fn create_unicode_placeholder(
                 result.push(id);
             }
         }
-        if !is_controlled {
-            if row < rows - 1 {
+        if !is_controlled
+            && row < rows - 1 {
                 result.push_str("\n");
             }
-        }
     }
 
     result.push_str("\x1b[39m");

@@ -259,8 +259,8 @@ fn extract_image_urls<'a>(node: &'a AstNode<'a>, urls: &mut Vec<ImageUrl>) {
         // regex for; <URL>#<Width>x<Height>
         // width and height are optional.
         let regex = Regex::new(r"^(.+?)(?:#(\d+)?x(\d+)?)?$").unwrap();
-        if let Some(captures) = regex.captures(&image_node.url) {
-            if let Some(base_url) = captures.get(1) {
+        if let Some(captures) = regex.captures(&image_node.url)
+            && let Some(base_url) = captures.get(1) {
                 let width = captures.get(2).and_then(|v| v.as_str().parse::<u16>().ok());
                 let height = captures.get(3).and_then(|v| v.as_str().parse::<u16>().ok());
                 urls.push(ImageUrl {
@@ -270,7 +270,6 @@ fn extract_image_urls<'a>(node: &'a AstNode<'a>, urls: &mut Vec<ImageUrl>) {
                     height,
                 });
             }
-        }
     }
 
     for child in node.children() {
