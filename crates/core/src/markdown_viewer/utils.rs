@@ -414,10 +414,7 @@ pub fn wrap_highlighted_line(
             buf.push_str("\x1b]8;;\x1b\\");
         }
         // carry on formatting
-        match find_last_format(line) {
-            Some(ansi) => pre_format = ansi,
-            None => {}
-        }
+        if let Some(ansi) = find_last_format(line) { pre_format = ansi }
         buf.push_str(RESET);
     }
     buf.push_str(suffix);

@@ -60,10 +60,7 @@ pub fn clear_screen(
 ) -> std::io::Result<()> {
     let mut buffer: Vec<u8> = Vec::new();
     queue!(buffer, Clear(ClearType::All), MoveTo(0, 0))?;
-    match addon {
-        Some(val) => buffer.extend_from_slice(&val),
-        None => {}
-    }
+    if let Some(val) = addon { buffer.extend_from_slice(&val) }
 
     stdout.write_all(&buffer)?;
     Ok(())
