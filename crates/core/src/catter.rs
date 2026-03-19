@@ -47,7 +47,7 @@ pub fn get_album(path: &Path) -> Option<Vec<DynamicImage>> {
     // pdf
     if matches!(ext.as_ref(), "pdf" | "tex" | "typ") && converter::get_pdf_command().is_ok() {
         let (path, _tmpfile, _tmpfolder) = converter::get_pdf(path);
-        let images = converter::pdf_to_vec(&path.to_string_lossy().to_string()).ok()?;
+        let images = converter::pdf_to_vec(path.to_string_lossy().as_ref()).ok()?;
         if !images.is_empty() {
             return Some(images);
         }

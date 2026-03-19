@@ -499,7 +499,7 @@ impl<T, E: std::fmt::Display> UnwrapOrExit<T> for Result<T, E> {
 fn expand_tilde(path: &str) -> String {
     if path.starts_with("~")
         && let Some(home) = home_dir() {
-            return path.replace("~", &home.to_string_lossy().into_owned());
+            return path.replace("~", &home.to_string_lossy());
         }
     path.to_string()
 }
