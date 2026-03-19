@@ -453,12 +453,12 @@ fn truncate_filename(name: String, width: u16, lnk: &Path, create_hyprlink: bool
     let osc8_start = if create_hyprlink {
         std::fs::canonicalize(lnk)
             .ok()
-            .and_then(|abs_path| {
+            .map(|abs_path| {
                 let abs_path = abs_path.display().to_string();
                 let abs_path = abs_path.strip_prefix(r"\\?\").unwrap_or(&abs_path);
                 let abs_path = abs_path.replace("\\", "/");
                 let uri = format!("file://{}", abs_path);
-                Some(format!("\x1b]8;;{}\x1b\\", uri))
+                format!("\x1b]8;;{}\x1b\\", uri)
             })
             .unwrap_or("".to_owned())
     } else {
