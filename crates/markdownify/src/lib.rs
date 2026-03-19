@@ -118,7 +118,7 @@ pub fn convert_files(files: Vec<PathBuf>) -> Result<String, ParsingError> {
 
     for path in files {
         let key = path
-            .strip_prefix(&common_root)
+            .strip_prefix(common_root)
             .unwrap_or(&path)
             .to_string_lossy()
             .into_owned();

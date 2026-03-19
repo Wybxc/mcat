@@ -251,7 +251,7 @@ pub fn latex_to_pdf<P: AsRef<Path>>(input_path: P) -> Option<(TempDir, PathBuf)>
 
     // Try Tectonic first
     let tectonic = Command::new("tectonic")
-        .args(&["--outdir", temp_dir.path().to_str()?, input_path.to_str()?])
+        .args(["--outdir", temp_dir.path().to_str()?, input_path.to_str()?])
         .output();
 
     if let Ok(output) = tectonic
@@ -261,7 +261,7 @@ pub fn latex_to_pdf<P: AsRef<Path>>(input_path: P) -> Option<(TempDir, PathBuf)>
 
     // Fallback to pdflatex
     let pdflatex = Command::new("pdflatex")
-        .args(&[
+        .args([
             &format!("-output-directory={}", temp_dir.path().to_str()?),
             "-interaction=nonstopmode",
             &input_path.to_str().map(|v| v.to_owned())?,
@@ -287,7 +287,7 @@ pub fn typst_to_pdf<P: AsRef<Path>>(input_path: P) -> Option<NamedTempFile> {
     let output_path = temp_pdf.path().to_path_buf();
 
     let result = Command::new("typst")
-        .args(&[
+        .args([
             "compile",
             "--format",
             "pdf",
@@ -356,7 +356,7 @@ pub fn pdf_to_vec(pdf_path: &str) -> Result<Vec<DynamicImage>, Box<dyn std::erro
     let tool = get_pdf_command()?;
 
     let output = Command::new(tool)
-        .args(&["-jpeg", "-r", "300", pdf_path, &temp_path])
+        .args(["-jpeg", "-r", "300", pdf_path, &temp_path])
         .output()
         .map_err(|e| format!("{} failed to execute: {}", tool, e))?;
     if !output.status.success() {
@@ -397,7 +397,7 @@ pub fn pdf_to_image(
     let tool = get_pdf_command()?;
 
     let output = Command::new(tool)
-        .args(&[
+        .args([
             "-jpeg",
             "-singlefile",
             "-f",
@@ -451,7 +451,7 @@ fn truncate_filename(name: String, width: u16, lnk: &Path, create_hyprlink: bool
     let width = width as usize;
 
     let osc8_start = if create_hyprlink {
-        std::fs::canonicalize(&lnk)
+        std::fs::canonicalize(lnk)
             .ok()
             .and_then(|abs_path| {
                 let abs_path = abs_path.display().to_string();
@@ -907,7 +907,7 @@ fn video_to_gif(input: impl AsRef<str>, silent: bool) -> Result<Vec<u8>, Box<dyn
         .hwaccel("auto")
         .input(input)
         .format("gif")
-        .args(&["-progress", "pipe:2"])
+        .args(["-progress", "pipe:2"])
         .output("-");
 
     let mut child = command.spawn()?;

@@ -39,7 +39,7 @@ fn handle_local_image(
     // Try absolute or CWD-relative path first
     if original_path.exists() {
         let file_data = fs::read(original_path)?;
-        let mut temp_file = NamedTempFile::with_suffix(&format!(".{}", extension))?;
+        let mut temp_file = NamedTempFile::with_suffix(format!(".{}", extension))?;
         temp_file.write_all(&file_data)?;
         temp_file.flush()?;
         return Ok(temp_file);
@@ -50,7 +50,7 @@ fn handle_local_image(
         let relative_path = md_dir.join(path);
         if relative_path.exists() {
             let file_data = fs::read(&relative_path)?;
-            let mut temp_file = NamedTempFile::with_suffix(&format!(".{}", extension))?;
+            let mut temp_file = NamedTempFile::with_suffix(format!(".{}", extension))?;
             temp_file.write_all(&file_data)?;
             temp_file.flush()?;
             return Ok(temp_file);

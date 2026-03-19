@@ -187,7 +187,7 @@ pub fn trim_ansi_string(mut str: String) -> String {
 }
 
 pub fn string_len(str: &str) -> usize {
-    strip_ansi_escapes::strip_str(&str).width()
+    strip_ansi_escapes::strip_str(str).width()
 }
 
 fn find_last_format(text: &str) -> Option<String> {

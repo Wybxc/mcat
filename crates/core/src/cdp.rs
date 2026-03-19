@@ -33,7 +33,7 @@ impl ChromeHeadless {
         let path = browser_config.path;
         let port = find_available_port()?;
         let process = Command::new(path)
-            .args(&[
+            .args([
                 // Core headless setup
                 "--headless=new",
                 &format!("--remote-debugging-port={}", port),

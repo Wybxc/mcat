@@ -249,7 +249,7 @@ fn get_ext_from_response<'a>(response: &Response) -> Option<&'a str> {
 }
 
 fn write_to_tmp_file(data: &[u8], ext: &str) -> Result<NamedTempFile, Box<dyn std::error::Error>> {
-    let mut tmp_file = NamedTempFile::with_suffix(&format!(".{}", ext))?;
+    let mut tmp_file = NamedTempFile::with_suffix(format!(".{}", ext))?;
     tmp_file.write_all(data)?;
     Ok(tmp_file)
 }
@@ -408,7 +408,7 @@ async fn process_html(
         let is_valid = match media_type.as_str() {
             "svg" => ext == "svg",
             "video" => catter::is_video(ext),
-            "image" => image::ImageFormat::from_extension(&ext).is_some(),
+            "image" => image::ImageFormat::from_extension(ext).is_some(),
             _ => false,
         };
         if !is_valid {
