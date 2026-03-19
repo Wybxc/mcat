@@ -158,7 +158,7 @@ impl ImagePreprocessor {
                         &img_str,
                         i,
                         &conf.inline_encoder,
-                        width.clone(),
+                        *width,
                     ),
                     img: img_str,
                 };
