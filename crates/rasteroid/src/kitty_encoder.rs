@@ -346,6 +346,12 @@ fn process_frame(
 /// // take alot of memory
 /// unsafe { encode_frames_fast(&mut kitty_frames, &mut out, true) };
 /// ```
+/// # Safety
+///
+/// The caller must guarantee that `frames` yields valid frame data for the entire
+/// encoding process and that `out` remains writable until the function returns.
+/// Violating these assumptions can cause undefined behavior in lower-level
+/// terminal/image handling paths.
 pub unsafe fn encode_frames_fast(
     frames: &mut dyn Iterator<Item = impl Frame>,
     out: &mut impl Write,
