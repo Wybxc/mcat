@@ -59,7 +59,7 @@ fn get_lnk_target(path: impl AsRef<Path>) -> Option<String> {
 
     // magick
     file.read_exact(&mut buf).ok()?;
-    if &buf[0..4] != &[0x4C, 0x00, 0x00, 0x00] {
+    if buf[0..4] != [0x4C, 0x00, 0x00, 0x00] {
         return None;
     }
 
