@@ -84,10 +84,7 @@ pub fn md_to_html(markdown: &str, style: Option<&str>) -> String {
         plugins.render.codefence_syntax_highlighter = Some(&adapter);
     }
 
-    let full_css = match style {
-        Some(_) => Some(theme.to_html_style()),
-        None => None,
-    };
+    let full_css = style.map(|_| theme.to_html_style());
 
     let html = markdown_to_html_with_plugins(markdown, &options, &plugins);
     match full_css {

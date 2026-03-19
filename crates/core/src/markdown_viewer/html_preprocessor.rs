@@ -30,11 +30,7 @@ fn collect(element: ElementRef, ctx: &ProcessingContext, sep: &str) -> String {
                 } else {
                     Some(collect(el, ctx, ""))
                 }
-            } else if let Some(text) = child.value().as_text() {
-                Some(text.to_string())
-            } else {
-                None
-            }
+            } else { child.value().as_text().map(|text| text.to_string()) }
         })
         .map(|s| s.trim().to_string())
         .filter(|s| !s.is_empty())
