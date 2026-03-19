@@ -751,7 +751,7 @@ pub fn lsix(
                 px_x_padding
             },
         )?;
-        let height = dim_to_cells(height.as_ref(), SizeDirection::Height)?;
+        let height = dim_to_cells(height, SizeDirection::Height)?;
         ensure_space(&mut buf, height as u16)?;
         // windows for some reason doesn't handle newlines as expected..
         if cfg!(windows) {
