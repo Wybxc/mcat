@@ -740,8 +740,7 @@ pub fn lsix(
         let items: Vec<_> = chunk.collect();
         let images: Vec<DynamicImage> = items
             .iter()
-            .map(|f| image::load_from_memory(&f.0))
-            .flatten()
+            .flat_map(|f| image::load_from_memory(&f.0))
             .collect();
         let image = combine_images_into_row(
             images,
