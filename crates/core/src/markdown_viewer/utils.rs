@@ -360,7 +360,6 @@ fn wrap_with_sub(original: String, first_width: usize, sub_width: usize) -> Vec<
     };
     let sub_lines = lines.into_iter().skip(1).join(" ");
 
-    let sub_width = sub_width;
     let lines: Vec<String> = textwrap::wrap(&sub_lines, sub_width)
         .into_iter()
         .map(|cow| cow.into_owned())
