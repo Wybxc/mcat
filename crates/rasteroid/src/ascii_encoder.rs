@@ -287,7 +287,7 @@ pub fn encode_frames(
 
 fn clear_write_frame(
     mut out: impl Write,
-    val: &Vec<u8>,
+    val: &[u8],
     start: bool,
 ) -> Result<(), Box<dyn std::error::Error>> {
     let mut buf = Vec::new();
