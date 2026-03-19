@@ -1,4 +1,4 @@
-use std::{collections::HashMap, sync::OnceLock, usize};
+use std::{collections::HashMap, sync::OnceLock};
 
 use itertools::Itertools;
 use rasteroid::term_misc;
