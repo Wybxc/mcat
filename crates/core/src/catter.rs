@@ -249,7 +249,7 @@ pub fn load(
         let (path, _tmpfile, _tmpfolder) = converter::get_pdf(path);
 
         // goes back to normal parsing if fails.
-        if let Ok(img_data) = converter::pdf_to_image(&path.to_string_lossy().into_owned(), 1) {
+        if let Ok(img_data) = converter::pdf_to_image(path.to_string_lossy().as_ref(), 1) {
             match to.as_ref() {
                 "image" => {
                     let res = LoadResult::Handled(CatType::Image);
