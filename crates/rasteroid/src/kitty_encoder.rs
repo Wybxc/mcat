@@ -461,7 +461,7 @@ fn encode_frames_sep(
     let suffix = if tmux { "\x1b\x1b\\\x1b\\" } else { "\x1b\\" };
 
     let offset = if center {
-        Some(term_misc::center_image(width as u16, false))
+        Some(term_misc::center_image(width, false))
     } else {
         None
     };

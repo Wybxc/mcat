@@ -440,10 +440,10 @@ impl Frame for VideoFrames {
         &self.img
     }
     fn width(&self) -> u16 {
-        self.width as u16
+        self.width
     }
     fn height(&self) -> u16 {
-        self.height as u16
+        self.height
     }
 }
 
