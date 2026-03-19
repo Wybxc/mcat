@@ -67,7 +67,9 @@ fn collect<'a>(node: &'a AstNode<'a>, ctx: &mut AnsiContext, sep: &str) -> Strin
 pub fn parse_node<'a>(node: &'a AstNode<'a>, ctx: &mut AnsiContext) -> String {
     let data = node.data.borrow();
 
-    let content = match &data.value {
+    
+
+    match &data.value {
         NodeValue::Document => render_document(node, ctx),
         NodeValue::FrontMatter(_) => render_front_matter(node, ctx),
         NodeValue::BlockQuote => render_block_quote(node, ctx),
@@ -114,9 +116,7 @@ pub fn parse_node<'a>(node: &'a AstNode<'a>, ctx: &mut AnsiContext) -> String {
         NodeValue::Highlight => String::new(),
         NodeValue::ShortCode(_) => String::new(),
         NodeValue::Subtext => String::new(),
-    };
-
-    content
+    }
 }
 
 fn render_document<'a>(node: &'a AstNode<'a>, ctx: &mut AnsiContext) -> String {
@@ -196,13 +196,13 @@ fn render_block_quote<'a>(node: &'a AstNode<'a>, ctx: &mut AnsiContext) -> Strin
         .join("\n");
 
     let indent = ctx.indent();
-    let content = if ctx.should_wrap() {
+    
+
+    if ctx.should_wrap() {
         wrap_char_based(&content, '▌', indent, "", "")
     } else {
         content.to_owned()
-    };
-
-    content
+    }
 }
 
 fn render_list<'a>(node: &'a AstNode<'a>, ctx: &mut AnsiContext) -> String {
@@ -216,13 +216,13 @@ fn render_list<'a>(node: &'a AstNode<'a>, ctx: &mut AnsiContext) -> String {
     ctx.list_depth -= 1;
 
     let indent = ctx.indent();
-    let content = if ctx.should_wrap() {
+    
+
+    if ctx.should_wrap() {
         wrap_lines(&content, true, indent, "", "  ") // 2 space extra because of the bullet
     } else {
         content
-    };
-
-    content
+    }
 }
 
 fn render_item<'a>(node: &'a AstNode<'a>, ctx: &mut AnsiContext) -> String {
@@ -336,9 +336,9 @@ fn render_html_block<'a>(node: &'a AstNode<'a>, ctx: &mut AnsiContext) -> String
         .lines()
         .map(|line| format!("{comment}{line}{RESET}"))
         .join("\n");
-    let result = wrap_lines(&result, true, INDENT, "", "");
+    
 
-    result
+    wrap_lines(&result, true, INDENT, "", "")
 }
 
 fn render_paragraph<'a>(node: &'a AstNode<'a>, ctx: &mut AnsiContext) -> String {
@@ -397,7 +397,9 @@ fn render_heading<'a>(node: &'a AstNode<'a>, ctx: &mut AnsiContext) -> String {
     let main_color = &ctx.theme.keyword.fg;
     let content = content.replace(RESET, &format!("{RESET}{bg}"));
 
-    let header = if !ctx.center {
+    
+
+    if !ctx.center {
         let padding = " ".repeat(
             ctx.term_width
                 .saturating_sub(string_len(&content) as usize),
@@ -414,9 +416,7 @@ fn render_heading<'a>(node: &'a AstNode<'a>, ctx: &mut AnsiContext) -> String {
             " ".repeat(padding_left),
             " ".repeat(padding_rigth)
         )
-    };
-
-    header
+    }
 }
 
 fn render_thematic_break<'a>(node: &'a AstNode<'a>, ctx: &mut AnsiContext) -> String {
@@ -546,7 +546,9 @@ fn render_table<'a>(node: &'a AstNode<'a>, ctx: &mut AnsiContext) -> String {
     }
 
     let sps = node.data.borrow().sourcepos;
-    let result = if ctx.center {
+    
+
+    if ctx.center {
         let le = string_len(result.lines().nth(1).unwrap_or_default());
         let offset = sps.start.column.saturating_sub(1);
         let offset = (ctx.term_width - offset)
@@ -565,9 +567,7 @@ fn render_table<'a>(node: &'a AstNode<'a>, ctx: &mut AnsiContext) -> String {
             .join("\n")
     } else {
         result
-    };
-
-    result
+    }
 }
 
 fn render_strong<'a>(node: &'a AstNode<'a>, ctx: &mut AnsiContext) -> String {
@@ -713,11 +713,11 @@ fn render_alert<'a>(node: &'a AstNode<'a>, ctx: &mut AnsiContext) -> String {
     result.push_str(&alert_content);
 
     let indent = ctx.indent();
-    let content = if ctx.should_wrap() {
+    
+
+    if ctx.should_wrap() {
         wrap_char_based(&result, '▌', indent, "", "")
     } else {
         result
-    };
-
-    content
+    }
 }

@@ -247,7 +247,7 @@ pub fn process(markdown: &str) -> String {
     let escaped_markdown = ctx.escape_unknown_elements(markdown);
     let document = Html::parse_fragment(&escaped_markdown);
 
-    let content = collect(document.root_element(), &ctx, "\n\n");
+    
 
-    content
+    collect(document.root_element(), &ctx, "\n\n")
 }

@@ -532,7 +532,8 @@ fn calculate_items_per_row(terminal_width: u16, ctx: &LsixOptions) -> Result<usi
 
 #[rustfmt::skip]
 fn ext_to_svg(ext: &str) -> &'static str {
-    let svg = if ext == "IAMADIR" {
+    
+    (if ext == "IAMADIR" {
         include_str!("../assets//folder.svg")
     } else if catter::is_video(ext) {
         include_str!("../assets/video.svg")
@@ -583,8 +584,7 @@ fn ext_to_svg(ext: &str) -> &'static str {
         include_str!("../assets/archive.svg")
     } else {
         include_str!("../assets/txt.svg")
-    };
-    svg
+    }) as _
 }
 
 pub fn lsix(
@@ -764,8 +764,8 @@ pub fn lsix(
         let names: Vec<String> = items
             .iter()
             .map(|f| {
-                let tpath = truncate_filename((*f.1).clone(), width, f.4, ctx.create_hyprlink);
-                tpath
+                
+                truncate_filename((*f.1).clone(), width, f.4, ctx.create_hyprlink)
             })
             .collect();
         let pad_x = " ".repeat(x_padding as usize);
