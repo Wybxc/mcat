@@ -331,10 +331,7 @@ fn print_image(
     dyn_img: DynamicImage,
     opts: &McatConfig,
 ) -> Result<(), Box<dyn Error>> {
-    let resize_for_ascii = match opts.inline_encoder {
-        rasteroid::InlineEncoder::Ascii => true,
-        _ => false,
-    };
+    let resize_for_ascii = matches!(opts.inline_encoder, rasteroid::InlineEncoder::Ascii);
 
     let dyn_img = apply_pan_zoom_once(dyn_img, opts);
     let (img, center, _, _) = dyn_img.resize_plus(
@@ -400,10 +397,7 @@ fn interact_with_image(
     let image_width = img.width();
     let image_height = img.height();
 
-    let resize_for_ascii = match opts.inline_encoder {
-        rasteroid::InlineEncoder::Ascii => true,
-        _ => false,
-    };
+    let resize_for_ascii = matches!(opts.inline_encoder, rasteroid::InlineEncoder::Ascii);
 
     let height_cells = term_misc::dim_to_cells(
         opts.inline_options.height.as_deref().unwrap_or(""),
