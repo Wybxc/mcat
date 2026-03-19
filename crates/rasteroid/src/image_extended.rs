@@ -7,6 +7,8 @@ use crate::term_misc::dim_to_cells;
 
 use super::term_misc::{self, dim_to_px};
 
+type ResizePlusResult = Result<(Vec<u8>, u16, u32, u32), Box<dyn error::Error>>;
+
 pub trait InlineImage {
     /// fast image resizer, that takes logic units.
     /// # example:
@@ -33,7 +35,7 @@ pub trait InlineImage {
         height: Option<&str>,
         resize_for_ascii: bool,
         pad: bool,
-    ) -> Result<(Vec<u8>, u16, u32, u32), Box<dyn error::Error>>;
+    ) -> ResizePlusResult;
 }
 
 impl InlineImage for DynamicImage {
@@ -43,7 +45,7 @@ impl InlineImage for DynamicImage {
         height: Option<&str>,
         resize_for_ascii: bool,
         pad: bool,
-    ) -> Result<(Vec<u8>, u16, u32, u32), Box<dyn error::Error>> {
+    ) -> ResizePlusResult {
         let (src_width, src_height) = self.dimensions();
         let width = match width {
             Some(w) => match resize_for_ascii {
