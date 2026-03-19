@@ -112,7 +112,7 @@ fn write_sixel<W: Write>(out: &mut W, img: &ImageBuffer<Rgb<u8>, Vec<u8>>) -> io
     let mut sixel_data = vec![0u8; width * palette_size];
 
     // Process the image in 6-pixel strips
-    let sixel_rows = (height + 5) / 6;
+    let sixel_rows = height.div_ceil(6);
     for row in 0..sixel_rows {
         // Graphics NL (new sixel line)
         if row > 0 {

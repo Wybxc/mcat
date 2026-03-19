@@ -522,7 +522,7 @@ fn calculate_items_per_row(terminal_width: u16, ctx: &LsixOptions) -> Result<usi
     let max_item_width: u16 = term_misc::dim_to_cells(&ctx.max_width, SizeDirection::Width)? as u16;
     let max_items_per_row: usize = ctx.max_items_per_row;
 
-    let min_items = ((terminal_width + max_item_width - 1) / max_item_width) as usize;
+    let min_items = terminal_width.div_ceil(max_item_width) as usize;
     let max_items = (terminal_width / min_item_width) as usize;
     let mut items = min_items;
     items = items.min(max_items);
