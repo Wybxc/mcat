@@ -136,7 +136,7 @@ impl ImagePreprocessor {
                 };
 
                 let (img, _, new_width, _) = img
-                    .resize_plus(Some(&width_fm), Some(&height_fm), false, false)
+                    .resize_plus(Some(width_fm), Some(height_fm), false, false)
                     .ok()?;
 
                 return Some((url, img, new_width));
@@ -146,7 +146,7 @@ impl ImagePreprocessor {
         let mut mapper: HashMap<String, ImageElement> = HashMap::new();
         for (i, (url, img, width)) in items.iter().enumerate() {
             let mut buffer = Vec::new();
-            if let Err(e) = inline_an_image(&img, &mut buffer, None, None, &conf.inline_encoder) {
+            if let Err(e) = inline_an_image(img, &mut buffer, None, None, &conf.inline_encoder) {
                 if !conf.silent {
                     eprintln!("Failed to encode image '{}': {}", url.original_url, e);
                 }

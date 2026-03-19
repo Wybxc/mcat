@@ -161,7 +161,7 @@ fn render_footnote_def<'a>(node: &'a AstNode<'a>, ctx: &mut AnsiContext) -> Stri
         .map(|line| {
             let indent = ctx.indent();
             if ctx.should_wrap() {
-                wrap_lines(&line, false, indent, "", "")
+                wrap_lines(line, false, indent, "", "")
             } else {
                 line.into()
             }
@@ -367,7 +367,7 @@ fn render_paragraph<'a>(node: &'a AstNode<'a>, ctx: &mut AnsiContext) -> String 
             .map(|line| {
                 let indent = ctx.indent();
                 if ctx.should_wrap() {
-                    wrap_lines(&line, false, indent, "", "")
+                    wrap_lines(line, false, indent, "", "")
                 } else {
                     line.into()
                 }

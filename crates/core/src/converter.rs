@@ -317,7 +317,7 @@ pub fn html_to_image(html: &str) -> Result<Vec<u8>, Box<dyn std::error::Error>> 
         .enable_all()
         .build()?;
     rt.block_on(async {
-        let browser = ChromeHeadless::new(&url.as_str()).await?;
+        let browser = ChromeHeadless::new(url.as_str()).await?;
         let img_data = browser.capture_screenshot().await?;
         Ok(img_data)
     })
@@ -605,7 +605,7 @@ pub fn lsix(
         .build();
     let resize_for_ascii = matches!(inline_encoder, rasteroid::InlineEncoder::Ascii);
     let ts = rasteroid::term_misc::get_wininfo();
-    let items_per_row = calculate_items_per_row(ts.sc_width, &ctx)?;
+    let items_per_row = calculate_items_per_row(ts.sc_width, ctx)?;
     let x_padding = term_misc::dim_to_cells(&ctx.x_padding, SizeDirection::Width)? as u16;
     let y_padding = term_misc::dim_to_cells(&ctx.y_padding, SizeDirection::Height)? as u16;
     let width = (ts.sc_width as f32 / items_per_row as f32 + 0.1).round() as u16 - x_padding - 1;
@@ -703,7 +703,7 @@ pub fn lsix(
         .filter_map(|(path, ext, filename)| {
             let dyn_img = if ext == "svg" {
                 fs::read(path).ok().and_then(|buf| {
-                    svg_to_image(buf.as_slice(), Some(&width_formatted), Some(&height)).ok()
+                    svg_to_image(buf.as_slice(), Some(&width_formatted), Some(height)).ok()
                 })
             } else if ImageFormat::from_extension(ext).is_some() {
                 fs::read(path)
@@ -721,13 +721,13 @@ pub fn lsix(
             let dyn_img = dyn_img.or_else(|| {
                 let svg = ext_to_svg(ext);
                 let cursor = Cursor::new(svg);
-                svg_to_image(cursor, Some(&width_formatted), Some(&height)).ok()
+                svg_to_image(cursor, Some(&width_formatted), Some(height)).ok()
             })?;
 
             let (img, _, w, h) = dyn_img
                 .resize_plus(
                     Some(&width_formatted),
-                    Some(&height),
+                    Some(height),
                     resize_for_ascii,
                     true,
                 )
@@ -767,7 +767,7 @@ pub fn lsix(
         let names: Vec<String> = items
             .iter()
             .map(|f| {
-                let tpath = truncate_filename((*f.1).clone(), width, &f.4, ctx.create_hyprlink);
+                let tpath = truncate_filename((*f.1).clone(), width, f.4, ctx.create_hyprlink);
                 tpath
             })
             .collect();

@@ -146,7 +146,7 @@ pub fn cat(
         },
         ("html", "interactive") => {
             let html = &string_result.unwrap();
-            let img_bytes = converter::html_to_image(&html)?;
+            let img_bytes = converter::html_to_image(html)?;
             let img = image::load_from_memory(&img_bytes)?;
             interact_with_image(vec![img], opts, out)?;
             Ok(CatType::Interactive)
@@ -172,7 +172,7 @@ pub fn cat(
             let is_tty = stdout().is_tty();
             let use_color = opts.color.should_use(is_tty);
             let content = match use_color {
-                true => markdown_viewer::md_to_ansi(&res, &opts, Some(path)),
+                true => markdown_viewer::md_to_ansi(&res, opts, Some(path)),
                 false => res,
             };
             let use_pager = opts.paging.should_use(is_tty && content.lines().count() > term_misc::get_wininfo().sc_height as usize);
@@ -337,7 +337,7 @@ fn print_image(
         _ => false,
     };
 
-    let dyn_img = apply_pan_zoom_once(dyn_img, &opts);
+    let dyn_img = apply_pan_zoom_once(dyn_img, opts);
     let (img, center, _, _) = dyn_img.resize_plus(
         opts.inline_options.width.as_deref(),
         opts.inline_options.height.as_deref(),
@@ -346,8 +346,8 @@ fn print_image(
     )?;
     if opts.report {
         rasteroid::term_misc::report_size(
-            &opts.inline_options.width.as_deref().unwrap_or(""),
-            &opts.inline_options.height.as_deref().unwrap_or(""),
+            opts.inline_options.width.as_deref().unwrap_or(""),
+            opts.inline_options.height.as_deref().unwrap_or(""),
         );
     }
     rasteroid::inline_an_image(
@@ -433,7 +433,7 @@ fn interact_with_image(
                 let height = img.height();
                 vp.update_image_size(width, height);
             }
-            let new_img = vp.apply_to_image(&img);
+            let new_img = vp.apply_to_image(img);
             let (img, center, _, _) = new_img
                 .resize_plus(
                     opts.inline_options.width.as_deref(),

@@ -199,7 +199,7 @@ pub fn scrape_biggest_media(
     };
 
     rt.block_on(async {
-        let response = get_response(&client, url, options).await?;
+        let response = get_response(client, url, options).await?;
 
         // Check content length before proceeding
         if let Some(max_length) = options.max_content_length {
@@ -230,7 +230,7 @@ pub fn scrape_biggest_media(
         }
 
         // Process HTML content for embedded media
-        process_html(&client, response, url, options).await
+        process_html(client, response, url, options).await
     })
 }
 
@@ -252,7 +252,7 @@ fn get_ext_from_response<'a>(response: &Response) -> Option<&'a str> {
 
 fn write_to_tmp_file(data: &[u8], ext: &str) -> Result<NamedTempFile, Box<dyn std::error::Error>> {
     let mut tmp_file = NamedTempFile::with_suffix(&format!(".{}", ext))?;
-    tmp_file.write_all(&data)?;
+    tmp_file.write_all(data)?;
     return Ok(tmp_file);
 }
 
@@ -385,7 +385,7 @@ async fn process_html(
     let mut biggest_media: Option<(usize, Vec<u8>, String)> = None;
     for (media_url, media_type) in potential_media.iter() {
         // parse url
-        let resolved_url = match reqwest::Url::parse(url).and_then(|base| base.join(&media_url)) {
+        let resolved_url = match reqwest::Url::parse(url).and_then(|base| base.join(media_url)) {
             Ok(v) => v,
             Err(_) => continue,
         };
@@ -413,7 +413,7 @@ async fn process_html(
 
         let is_valid = match media_type.as_str() {
             "svg" => ext == "svg",
-            "video" => catter::is_video(&ext),
+            "video" => catter::is_video(ext),
             "image" => image::ImageFormat::from_extension(&ext).is_some(),
             _ => false,
         };

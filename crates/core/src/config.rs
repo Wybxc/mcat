@@ -324,10 +324,10 @@ impl McatConfig {
 
         // simple Assignment
         if let Some(ls_options) = opts.get_one::<String>("ls-options") {
-            self.ls_options.extend_from_string(&ls_options);
+            self.ls_options.extend_from_string(ls_options);
         }
         if let Some(inline_options) = opts.get_one::<String>("inline-options") {
-            self.inline_options.extend_from_string(&inline_options);
+            self.inline_options.extend_from_string(inline_options);
         }
         if opts.get_flag("silent") {
             self.silent = true;
@@ -392,7 +392,7 @@ impl McatConfig {
         }
         // ls
         if let Some(sort_method) = opts.get_one::<String>("sort") {
-            self.ls_options.sort_mode = SortMode::from_string(&sort_method);
+            self.ls_options.sort_mode = SortMode::from_string(sort_method);
         }
         if opts.get_flag("reverse") {
             self.ls_options.reverse = true

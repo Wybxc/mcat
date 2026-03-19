@@ -12,7 +12,7 @@ pub struct ThemeColor {
 
 impl From<&str> for ThemeColor {
     fn from(hex_color: &str) -> Self {
-        let color = hex_to_rgba(&hex_color);
+        let color = hex_to_rgba(hex_color);
         let (r, g, b) = (color.r, color.g, color.b);
 
         ThemeColor {

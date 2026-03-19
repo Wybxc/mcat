@@ -110,7 +110,7 @@ fn format_file_list(paths: &[PathBuf], base: &Path) -> Vec<String> {
                 })
                 .unwrap_or(true);
             line.push_str(if is_last { "└── " } else { "├── " });
-            line.push_str(&reset);
+            line.push_str(reset);
         }
 
         let name_color = if is_link {

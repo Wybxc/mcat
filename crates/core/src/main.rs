@@ -379,7 +379,7 @@ fn main() {
     scraper_opts.silent = config.silent;
     for i in config.input.iter() {
         if i.starts_with("https://") {
-            if let Ok(tmp) = scrapy::scrape_biggest_media(&i, &scraper_opts) {
+            if let Ok(tmp) = scrapy::scrape_biggest_media(i, &scraper_opts) {
                 let path = tmp.path().to_path_buf();
                 tmp_files.push(tmp);
                 path_bufs.push(path);
@@ -387,7 +387,7 @@ fn main() {
                 eprintln!("{} didn't contain any supported media", i);
             }
         } else {
-            let i = expand_tilde(&i);
+            let i = expand_tilde(i);
             let path = Path::new(&i);
             if !path.exists() {
                 eprintln!("{} doesn't exists", path.display());

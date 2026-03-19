@@ -28,7 +28,7 @@ fn transmit_shm(
 
     let mut shmem = ShmemConf::new().size(s).os_id(shm_name).create()?;
     let shmem_slice = unsafe { shmem.as_slice_mut() };
-    shmem_slice[..data.len()].copy_from_slice(&data);
+    shmem_slice[..data.len()].copy_from_slice(data);
     let shm_name = general_purpose::STANDARD.encode(shm_name);
 
     let prefix = if tmux {
@@ -496,7 +496,7 @@ fn encode_frames_sep(
 
     // adding the root image
     process_frame(
-        &first.data(),
+        first.data(),
         out,
         opts,
         None,
@@ -534,7 +534,7 @@ fn encode_frames_sep(
         let sub_opts = HashMap::from([("a".to_string(), "f".to_string())]);
 
         if process_frame(
-            &frame.data(),
+            frame.data(),
             out,
             first_opts,
             Some(sub_opts),
