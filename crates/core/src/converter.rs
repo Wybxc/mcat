@@ -537,7 +537,7 @@ fn ext_to_svg(ext: &str) -> &'static str {
         include_str!("../assets//folder.svg")
     } else if catter::is_video(ext) {
         include_str!("../assets/video.svg")
-    } else if ext == "" {
+    } else if ext.is_empty() {
         include_str!("../assets/file.svg")
     } else if matches!(ext, 
         "codes" | "py" | "rs" | "js" | "ts" | "java" | "c" | "cpp" | "h" | "hpp" | 
@@ -631,7 +631,7 @@ pub fn lsix(
                 .unwrap_or_default()
                 .to_string_lossy()
                 .to_lowercase();
-            if ext == "" && filename.contains(".") {
+            if ext.is_empty() && filename.contains(".") {
                 return Some((path, filename.replace(".", ""), filename));
             }
             Some((path, ext, filename))
