@@ -60,7 +60,7 @@ fn detect_video(bytes: &[u8]) -> Option<&'static str> {
     if bytes.get(4..8) == Some(b"ftyp") {
         if bytes
             .get(8..12)
-            .map_or(false, |b| matches!(b, b"isom" | b"mp42" | b"iso2"))
+            .is_some_and(|b| matches!(b, b"isom" | b"mp42" | b"iso2"))
         {
             return Some("mp4");
         } else if bytes.get(8..12) == Some(b"m4v ") {

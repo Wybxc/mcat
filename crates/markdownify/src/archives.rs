@@ -79,7 +79,7 @@ fn should_skip_file(name: &str) -> bool {
         || name.contains("/._")
         || Path::new(name)
             .file_name()
-            .map_or(false, |f| f.to_string_lossy().starts_with("._"))
+            .is_some_and(|f| f.to_string_lossy().starts_with("._"))
 }
 
 fn get_extension(name: &str) -> String {
