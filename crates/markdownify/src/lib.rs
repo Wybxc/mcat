@@ -132,7 +132,7 @@ pub fn convert_files(files: Vec<PathBuf>) -> Result<String, ParsingError> {
 
 pub fn convert(path: &Path) -> Result<String, ParsingError> {
     if !path.is_file() {
-        return Err(ParsingError::InvalidFile(path.to_string_lossy().to_string()).into());
+        return Err(ParsingError::InvalidFile(path.to_string_lossy().to_string()));
     }
 
     // files without exts will just map into the file_fallback method

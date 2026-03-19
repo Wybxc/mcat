@@ -186,7 +186,7 @@ pub fn parse_docx(content: impl AsRef<[u8]>) -> Result<String, ParsingError> {
             Ok(Event::Eof) => break,
             Err(e) => {
                 return Err(ParsingError::ParsingError(
-                    format!("Error at position {}: {:?}", reader.buffer_position(), e).into(),
+                    format!("Error at position {}: {:?}", reader.buffer_position(), e),
                 ));
             }
             _ => {}

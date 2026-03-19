@@ -253,7 +253,7 @@ pub fn dim_to_px(dim: &str, direction: SizeDirection) -> Result<u32, String> {
     } else if dim.ends_with("c") {
         if let Ok(num) = dim.trim_end_matches("c").parse::<u16>() {
             let value = (spx as f32 / sc as f32 * num as f32).ceil() as u32;
-            return Ok(value.into());
+            return Ok(value);
         }
     } else if dim.ends_with("%")
         && let Ok(num) = dim.trim_end_matches("%").parse::<f32>() {

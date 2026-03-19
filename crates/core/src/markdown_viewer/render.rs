@@ -400,8 +400,7 @@ fn render_heading<'a>(node: &'a AstNode<'a>, ctx: &mut AnsiContext) -> String {
     let header = if !ctx.center {
         let padding = " ".repeat(
             ctx.term_width
-                .saturating_sub(string_len(&content) as usize)
-                .into(),
+                .saturating_sub(string_len(&content) as usize),
         );
         format!("{main_color}{bg}{content}{padding}{RESET}")
     } else {
