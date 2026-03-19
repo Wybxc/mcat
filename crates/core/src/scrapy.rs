@@ -131,7 +131,7 @@ fn extension_from_mime(mime: &str) -> Option<&'static str> {
 static GLOBAL_MULTI_PROGRESS: OnceLock<MultiProgress> = OnceLock::new();
 
 fn get_global_multi_progress() -> &'static MultiProgress {
-    GLOBAL_MULTI_PROGRESS.get_or_init(|| MultiProgress::new())
+    GLOBAL_MULTI_PROGRESS.get_or_init(MultiProgress::new)
 }
 
 pub struct MediaScrapeOptions {
