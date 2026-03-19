@@ -255,7 +255,7 @@ pub fn create_unicode_placeholder(
         }
         if !is_controlled
             && row < rows - 1 {
-                result.push_str("\n");
+                result.push('\n');
             }
     }
 
