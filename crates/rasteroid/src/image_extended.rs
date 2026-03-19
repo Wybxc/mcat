@@ -28,7 +28,7 @@ pub trait InlineImage {
     /// * it accepts either `%` (percentage) / `c` (cells) / just a number
     /// * when resize for ascii is true it resizes to cells, if not it resizes to pixels
     /// * pad adds empty pixels so the image will be the exact dimensions specified, while still
-    /// maintaining aspect ratio
+    ///   maintaining aspect ratio
     fn resize_plus(
         &self,
         width: Option<&str>,
