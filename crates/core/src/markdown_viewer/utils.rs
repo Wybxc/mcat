@@ -532,7 +532,7 @@ pub fn format_code_full<'a>(code: &str, lang: &str, ctx: &AnsiContext) -> String
         "─".repeat(term_width as usize - num_width - 1)
     );
     buffer.push_str(&last_border);
-    format!("{buffer}")
+    buffer.to_string()
 }
 
 pub fn format_code_box<'a>(code: &str, lang: &str, title: &str, ctx: &AnsiContext) -> String {
@@ -610,7 +610,7 @@ pub fn format_code_box<'a>(code: &str, lang: &str, title: &str, ctx: &AnsiContex
         "─".repeat(box_width.saturating_sub(2))
     ));
 
-    format!("{buffer}")
+    buffer.to_string()
 }
 
 pub fn format_tb(ctx: &AnsiContext, offset: usize) -> String {
