@@ -271,9 +271,8 @@ async fn download_media(
         }
 
     // Setup progress bar if not silent and content length is known
-    let progress_bar =
-        if !options.silent && content_length.is_some() && content_length.unwrap() > 500_000 {
-            let pb = get_global_multi_progress().add(ProgressBar::new(content_length.unwrap()));
+    let progress_bar = if !options.silent && let Some(total) = content_length && total > 500_000 {
+            let pb = get_global_multi_progress().add(ProgressBar::new(total));
             pb.set_style(
                 ProgressStyle::default_bar()
                     .template(
