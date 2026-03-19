@@ -273,7 +273,7 @@ impl McatConfig {
             .unwrap_or_default()
             .cloned()
             .collect();
-        self.is_ls = self.input.get(0).unwrap_or(&"".to_owned()).to_lowercase() == "ls";
+        self.is_ls = self.input.first().unwrap_or(&"".to_owned()).to_lowercase() == "ls";
 
         // encoder
         let mut kitty = opts.get_flag("kitty");

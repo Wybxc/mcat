@@ -61,8 +61,7 @@ pub fn cat(
     out: &mut impl Write,
     opts: &McatConfig,
 ) -> Result<CatType, Box<dyn std::error::Error>> {
-    let path = paths
-        .get(0)
+    let path = paths.first()
         .ok_or("This is most likely a bug - no paths are included in the cat function")?;
 
     //interactive mode

@@ -86,7 +86,7 @@ fn detect_video(bytes: &[u8]) -> Option<&'static str> {
         return Some("flv");
     }
 
-    if bytes.get(0) == Some(&0x47) {
+    if bytes.first() == Some(&0x47) {
         return Some("ts");
     }
 
