@@ -642,10 +642,12 @@ impl CustomTheme {
     }
 
     pub fn to_syntect_theme(&self) -> Theme {
-        let mut settings = ThemeSettings::default();
-        settings.foreground = Some(self.foreground.color);
-        settings.background = Some(self.surface.color);
-        settings.guide = Some(self.guide.color);
+        let settings = ThemeSettings {
+            foreground: Some(self.foreground.color),
+            background: Some(self.surface.color),
+            guide: Some(self.guide.color),
+            ..Default::default()
+        };
 
         let mut theme = Theme {
             name: None,

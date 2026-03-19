@@ -92,13 +92,15 @@ impl ImagePreprocessor {
             }
         };
         let markdown_dir = markdown_file_path.and_then(|p| p.parent());
-        let mut scrape_opts = MediaScrapeOptions::default();
-        scrape_opts.silent = conf.silent;
-        scrape_opts.videos = false;
-        scrape_opts.documents = false;
-        scrape_opts.max_content_length = match render_mode {
-            MdImageRender::All => None,
-            _ => Some(50_000), // filter complex images - won't scale down good
+        let scrape_opts = MediaScrapeOptions {
+            silent: conf.silent,
+            videos: false,
+            documents: false,
+            max_content_length: match render_mode {
+                MdImageRender::All => None,
+                _ => Some(50_000), // filter complex images - won't scale down good
+            },
+            ..Default::default()
         };
 
         let items: Vec<(&ImageUrl, Vec<u8>, u32)> = urls

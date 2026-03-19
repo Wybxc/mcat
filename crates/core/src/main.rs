@@ -375,8 +375,10 @@ fn main() {
             inspector::InspectedBytes::Path(path_buf) => path_bufs.push(path_buf),
         };
     }
-    let mut scraper_opts = MediaScrapeOptions::default();
-    scraper_opts.silent = config.silent;
+    let scraper_opts = MediaScrapeOptions {
+        silent: config.silent,
+        ..Default::default()
+    };
     for i in config.input.iter() {
         if i.starts_with("https://") {
             if let Ok(tmp) = scrapy::scrape_biggest_media(i, &scraper_opts) {
